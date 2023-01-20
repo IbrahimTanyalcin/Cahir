@@ -1,0 +1,2 @@
+# Enforce `lf` for all files (even on Windows)
+* eol=lf
