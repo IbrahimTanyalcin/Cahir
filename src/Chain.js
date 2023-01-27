@@ -1,14 +1,15 @@
+import orCall from "./originalCall.js";
+
 function Chain(o) {
     const pChain = Object.assign(
-        Object.create(Function.prototype),
-        Chain.prototype,
+        Object.create(Chain.prototype),
         o?.__proto__,
         o
     ),
         chain = o?.__init__ || function () { return this },
         prx = new Proxy(chain, Object.assign({
             apply: function (trgt, that, args) {
-                return trgt.call(prx, ...args);
+                return orCall.call(trgt, prx, ...args);
             },
             get: function (trgt, prop, receiver) {
                 if (prop === "__self__") {

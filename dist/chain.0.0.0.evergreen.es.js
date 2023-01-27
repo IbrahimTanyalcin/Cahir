@@ -1,4 +1,31 @@
-import { Chain } from "./Chain.js"
+var orCall = Function.prototype.call;
+
+function Chain(o) {
+    const pChain = Object.assign(
+        Object.create(Chain.prototype),
+        o?.__proto__,
+        o
+    ),
+        chain = o?.__init__ || function () { return this },
+        prx = new Proxy(chain, Object.assign({
+            apply: function (trgt, that, args) {
+                return orCall.call(trgt, prx, ...args);
+            },
+            get: function (trgt, prop, receiver) {
+                if (prop === "__self__") {
+                    return trgt;
+                } else if (prop === "__proxy__") {
+                    return prx;
+                }
+                return trgt[prop]?.bind?.(prx) ?? trgt[prop];
+            }
+        }, o?.__handler__));
+    chain.__proxy__ = prx;
+    Object.setPrototypeOf(chain, pChain);
+    return prx;
+}
+
+Chain.prototype = Object.create(Function.prototype);
 
 Chain.tagify = (
     {
@@ -47,3 +74,10 @@ Chain.tagify = (
     }
     return f?.call?.(this, ...args);
 };
+
+Chain.lambda = (f) => function (...args) {
+    f?.call?.(...args);
+    return this;
+};
+
+export { Chain as default };
