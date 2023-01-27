@@ -19,7 +19,8 @@
     "proxy",
     "tagged",
     "template",
-    "literal"
+    "literal",
+    "ES6"
   ],
   "author": "Ibrahim Tanyalcin",
   "license": "MIT",
