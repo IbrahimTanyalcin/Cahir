@@ -20,7 +20,11 @@
     "tagged",
     "template",
     "literal",
-    "ES6"
+    "ES6",
+    "ES7",
+    "ES8",
+    "ES9",
+    "ES10"
   ],
   "author": "Ibrahim Tanyalcin",
   "license": "MIT",
