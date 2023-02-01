@@ -21,6 +21,7 @@ function Chain(o) {
             }
         }, o?.__handler__));
     chain.__proxy__ = prx;
+    chain.__origin__ = o;
     Object.setPrototypeOf(chain, pChain);
     return prx;
 }
