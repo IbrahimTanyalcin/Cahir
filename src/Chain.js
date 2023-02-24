@@ -3,7 +3,7 @@ import orCall from "./originalCall.js";
 function Chain(o) {
     const pChain = Object.assign(
         Object.create(Chain.prototype),
-        o?.__proto__,
+        o?.__pr0t0__,
         o
     ),
         chain = o?.__init__ || function () { return this },
