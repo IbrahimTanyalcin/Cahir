@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Chain = factory());
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Cahir = factory());
 })(this, (function () { 'use strict';
 
     var orCall = Function.prototype.call;
@@ -15,9 +15,21 @@
             chain = o?.__init__ || function () { return this },
             prx = new Proxy(chain, Object.assign({
                 apply: function (trgt, that, args) {
+                    let next = () => {next = false;},
+                        ceptor;
+                    if (ceptor = trgt.__interceptApply__){
+                        ceptor = orCall.call(ceptor, prx, next, ...args);
+                        if(next){return ceptor}
+                    }
                     return orCall.call(trgt, prx, ...args);
                 },
                 get: function (trgt, prop, receiver) {
+                    let next = () => {next = false;},
+                        ceptor;
+                    if (ceptor = trgt.__interceptGet__){
+                        ceptor = orCall.call(ceptor, prx, next, prop, receiver);
+                        if(next){return ceptor}
+                    }
                     if (prop === "__self__") {
                         return trgt;
                     } else if (prop === "__proxy__") {

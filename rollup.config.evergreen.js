@@ -16,12 +16,12 @@ export default args => {
 		input: 'src/index.js',
 		output: [
 			{
-				file: 'dist/chain.' + version + '.evergreen.umd.js',
+				file: `dist/${name.toLowerCase()}.` + version + '.evergreen.umd.js',
 				format: 'umd',
 				name: name
 			},
 			{
-				file: 'dist/chain.' + version + '.evergreen.es.js',
+				file: `dist/${name.toLowerCase()}.` + version + '.evergreen.es.js',
 				format: 'es',
 				name: name
 			}
