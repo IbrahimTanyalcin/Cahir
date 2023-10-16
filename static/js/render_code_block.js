@@ -193,7 +193,7 @@ function renderCodeBlock(cardData, values, codeBlock){
         addClass ${"language-js"}
         => ${({values:v}) => async () => {
             v.el = ch.selected;
-            return fetch("/static/js/app.js")
+            return fetch("static/js/app.js")
             .then(res => res.text())
         }}
         |> await ${({values:v}) => (text) => {

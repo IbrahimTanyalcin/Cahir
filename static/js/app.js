@@ -1,5 +1,5 @@
 !async function(){
-    const cardData = await fetch("/static/gwent-chain/data/card-data-gwent.json")
+    const cardData = await fetch("static/gwent-chain/data/card-data-gwent.json")
     .then(res => res.json());
 
     ch`
@@ -26,8 +26,8 @@
     0> cardImageStyle: ${
         'style="width:100%; position: absolute; top: 0; left: 0;"'
     }
-    0> renderStyles: ${await import("/static/js/render_styles.js")}
-    0> renderCodeBlock: ${await import("/static/js/render_code_block.js")}
+    0> renderStyles: ${await import("static/js/render_styles.js")}
+    0> renderCodeBlock: ${await import("static/js/render_code_block.js")}
     0> ${async ({values}) => {
         const reactive = await ch.until(() => window.data).lastOp;
         values.renderCodeBlock.render(
@@ -37,7 +37,7 @@
     adopt ...${[
         "game-card", 
         (await import(
-            "/static/js/component-game-card.js"
+            "static/js/component-game-card.js"
         )).render
     ]}
     *> ${"style"} |> sappend ${0}

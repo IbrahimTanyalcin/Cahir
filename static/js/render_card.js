@@ -38,41 +38,41 @@ function renderCard(values, d){
                 values.aspectRatio
             });
         '>
-            <img src="/static/gwent-chain/img/${
+            <img src="static/gwent-chain/img/${
                 d?.["data-artid"]?.slice(0,-1)
             }.jpg" ${values.cardImageStyle}>
-            <img src="/static/gwent-chain/img/border_${
+            <img src="static/gwent-chain/img/border_${
                 d?.["data-color"]
             }.png" ${values.cardImageStyle}>
             ${+d?.["data-power"]
-            ? `<img src="/static/gwent-chain/img/default_${
+            ? `<img src="static/gwent-chain/img/default_${
                     d?.["data-faction"]
                 }.png" ${values.cardImageStyle}>
-                <img src="/static/gwent-chain/img/power_${
+                <img src="static/gwent-chain/img/power_${
                     ("00" + d?.["data-power"]).slice(-2)
                 }.png" ${values.cardImageStyle}>`
                 : ''
             }
             ${+d?.["data-provision"]
-                ? `<img src="/static/gwent-chain/img/provision_${
+                ? `<img src="static/gwent-chain/img/provision_${
                     d?.["data-faction"]
                 }.png" ${values.cardImageStyle}>
-                <img src="/static/gwent-chain/img/provision_${
+                <img src="static/gwent-chain/img/provision_${
                     d?.["data-provision"]
                 }.png" ${values.cardImageStyle}>`
                 : ''
             }
             ${d?.["data-rarity"]
-                ? `<img src="/static/gwent-chain/img/rarity_${
+                ? `<img src="static/gwent-chain/img/rarity_${
                     d?.["data-rarity"]
                 }.png" ${values.cardImageStyle}>`
                 : ''
             }
             ${+d?.["data-armor"]
-                ? `<img src="/static/gwent-chain/img/${
+                ? `<img src="static/gwent-chain/img/${
                     'trinket_armor.png"'
                 } ${values.cardImageStyle}>
-                <img src="/static/gwent-chain/img/armor_${
+                <img src="static/gwent-chain/img/armor_${
                     ("00" + d?.["data-armor"]).slice(-2)
                 }.png" ${values.cardImageStyle}>`
                 : ''

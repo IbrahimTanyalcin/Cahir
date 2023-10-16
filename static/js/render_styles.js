@@ -2,7 +2,7 @@ function renderStyles(values){
     return  `
         @font-face {
             font-family: 'angel';
-            src: url('/static/gwent-chain/fonts/angel.ttf');
+            src: url('static/gwent-chain/fonts/angel.ttf');
         }
         :root {
             background-color: black;
