@@ -1,2 +1,6 @@
 # Enforce `lf` for all files (even on Windows)
 * eol=lf
+*.ttf binary
+*.eot binary
+*.woff binary
+*.woff2 binary
