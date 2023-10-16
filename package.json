@@ -1,5 +1,5 @@
 {
-  "name": "@ibowankenobi/cahir",
+  "name": "cahir",
   "version": "0.0.0",
   "type": "module",
   "description": "flexible interface for method chaining using Proxy and tagged template literals",
