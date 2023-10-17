@@ -11,6 +11,8 @@
 
 [![website](https://img.shields.io/badge/website-showcase-orange)](https://ibrahimtanyalcin.github.io/Cahir/)
 [![DOI](https://zenodo.org/badge/591137155.svg)](https://zenodo.org/badge/latestdoi/591137155)
+[![npm badge](https://img.shields.io/npm/l/cahir)](https://www.npmjs.com/package/cahir)
+
 
 
 [Cahir](dist/cahir.0.0.0.evergreen.umd.js) is a function proxy that allows you interchangibly use tagged templates and method calls.
