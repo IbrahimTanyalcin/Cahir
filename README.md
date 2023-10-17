@@ -29,7 +29,7 @@
 ```
 - Create shortcuts to your methods and use them as operators like `->`, `|>`, `+->` in your templates. You can use any character as you want
 
-## Browser
+## Browser/Installation
 
 include the base script and your custom method collections (or the ones included in the `collections` folder of the repo):
 
@@ -285,7 +285,7 @@ When creating webcomponents, you can provide several properties
 ```
 All these are passed to method `game-card` or whatever name you assigned during adopting.
 
-`wc` implementation of `ch` uses `Symbol`s to detect and call `connectedCallback` only **ONCE**. To detect multiple additions/removals from DOM, you can use custom functions or `MutationObserver`. Or you can define your custom `wc`. Whatever floats your boat.
+`wc` implementation of `ch` uses `Symbol`s to detect and call `connectedCallback` only **ONCE**. To detect multiple additions/removals from DOM, you can use custom functions or `MutationObserver`. Or you can define your custom `wc`.
 
 ## Credits
 
@@ -295,11 +295,11 @@ Card data for the [website]() was taken from [gwent.one](https://gwent.one/).
 
 ### Ch implementations
 
-You can help documenting different `ch` implementations under [collections](collections) using `JSDoc` syntax
+You can help documenting different `Ch` implementations under [collections](collections) using `JSDoc` syntax
 
 ### PRs
 
-Reasonable PR's are always welcome:
+Reasonable PRs are always welcome:
 
 For `Cahir` itself:
 - state the bug/feature clearly
@@ -308,5 +308,5 @@ For `Cahir` itself:
 
 For method collections:
 - state what the collection is aimed at (*DOM manipulation, data visualization, calculations etc.*)
-- explain in method briefly in `JSDoc` syntax
+- explain method briefly in `JSDoc` syntax
 - include examples if possible
