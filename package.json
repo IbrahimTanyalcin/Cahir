@@ -1,5 +1,5 @@
 {
-  "name": "@ibowankenobi/chain",
+  "name": "cahir",
   "version": "0.0.0",
   "type": "module",
   "description": "flexible interface for method chaining using Proxy and tagged template literals",
@@ -7,8 +7,8 @@
   "scripts": {
     "test": "cross-env-shell CHAIN_VERSION=${npm_package_version} jest --ci",
     "buildEvergreen": "cross-env-shell CHAIN_VERSION=${npm_package_version} CHAIN_GLOBAL_NAME=${npm_package_name} rollup -c ./rollup.config.evergreen.js",
-    "minEvergreenUMD": "cross-env-shell uglifyjs ./dist/chain.${npm_package_version}.evergreen.umd.js -o ./dist/chain.${npm_package_version}.evergreen.umd.min.js",
-    "minEvergreenES": "cross-env-shell uglifyjs ./dist/chain.${npm_package_version}.evergreen.es.js -o ./dist/chain.${npm_package_version}.evergreen.es.min.js",
+    "minEvergreenUMD": "cross-env-shell uglifyjs ./dist/cahir.${npm_package_version}.evergreen.umd.js -o ./dist/cahir.${npm_package_version}.evergreen.umd.min.js",
+    "minEvergreenES": "cross-env-shell uglifyjs ./dist/cahir.${npm_package_version}.evergreen.es.js -o ./dist/cahir.${npm_package_version}.evergreen.es.min.js",
     "minEvergreen": "cross-env-shell npm run minEvergreenUMD && npm run minEvergreenES",
     "build": "cross-env-shell npm run buildEvergreen && npm run minEvergreen"
   },
