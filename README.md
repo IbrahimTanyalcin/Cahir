@@ -4,7 +4,7 @@
         <img src="static/gwent-chain/logo/logo.png" style="width: 120px;" width=120>
     </td>
     <td>
-        <h1> Cahir <h1>
+        <h1> Cahir </h1>
     </td>
     </tr>
 </table>
