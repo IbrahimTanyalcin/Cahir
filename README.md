@@ -1,15 +1,20 @@
 <table>
     <tr>
     <td>
-        <img src="static/gwent-chain/logo/logo.png" style="width: 120px;" width=120>
+        <a href="https://github.com/IbrahimTanyalcin/Cahir" target="_blank" aria-label="View source on Github">
+            <img src="static/gwent-chain/logo/logo.png" style="width: 120px;" width=120>
+        </a>
     </td>
-    <td style="font-size: 3rem">
-        Cahir
+    <td>
+        <h1> Cahir <h1>
     </td>
     </tr>
 </table>
 
-Cahir is a function proxy that allows you interchangibly use tagged templates and method calls. 
+[![website](https://img.shields.io/badge/website-showcase-orange)](https://github.com/IbrahimTanyalcin/Cahir)
+
+
+[Cahir](dist/cahir.0.0.0.evergreen.umd.js) is a function proxy that allows you interchangibly use tagged templates and method calls.
 
 ## What are the advantages?:
 
@@ -106,7 +111,7 @@ function base (...args) {
 2) Use the static `tagify` property on `Cahir` to convert the function for dual use (regular method calls + tagged templates)
 ```js
 const 
-    tagger = Chain.tagify(),
+    tagger = Cahir.tagify(),
     taggified = tagger(base);
 ```
 
@@ -178,7 +183,7 @@ method2 ${({values}) => values.comparer.en(a, b)}
 ...
 `
 ```
-8) `Chain.tagify` static method accepts optional arguments:
+8) `Cahir.tagify` static method accepts optional arguments:
 - `delim` (*string*): used for splitting strings to seprate methods and string arguments 
 - `strTransform` (*function*): transform the literal strings before evaluation during parsing
 - `valTransform` (*function*): transform the literal values before evaluation during parsing
@@ -279,7 +284,7 @@ When creating webcomponents, you can provide several properties
 ```
 All these are passed to method `game-card` or whatever name you assigned during adopting.
 
-`wc` implementation of `ch` uses `Symbol`s to detect and call `connectedCallback` only **ONCE**. To detect multiple additons/removals from DOM, you can use custom functions or `MutationObserver`. Or you can define your custom `wc`. Whatever floats your boat.
+`wc` implementation of `ch` uses `Symbol`s to detect and call `connectedCallback` only **ONCE**. To detect multiple additions/removals from DOM, you can use custom functions or `MutationObserver`. Or you can define your custom `wc`. Whatever floats your boat.
 
 ## Credits
 
