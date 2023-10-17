@@ -1,9 +1,7 @@
 <table>
     <tr>
     <td>
-        <a href="https://github.com/IbrahimTanyalcin/Cahir" target="_blank" aria-label="View source on Github">
-            <img src="static/gwent-chain/logo/logo.png" style="width: 120px;" width=120>
-        </a>
+        <img src="static/gwent-chain/logo/logo.png" style="width: 120px;" width=120>
     </td>
     <td>
         <h1> Cahir <h1>
