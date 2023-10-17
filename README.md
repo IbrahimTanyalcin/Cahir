@@ -9,7 +9,7 @@
     </tr>
 </table>
 
-[![website](https://img.shields.io/badge/website-showcase-orange)](https://github.com/IbrahimTanyalcin/Cahir)
+[![website](https://img.shields.io/badge/website-showcase-orange)](https://ibrahimtanyalcin.github.io/Cahir/)
 
 
 [Cahir](dist/cahir.0.0.0.evergreen.umd.js) is a function proxy that allows you interchangibly use tagged templates and method calls.
