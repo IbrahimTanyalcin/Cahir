@@ -14,16 +14,49 @@
 [![npm badge](https://img.shields.io/npm/l/cahir)](https://www.npmjs.com/package/cahir)
 
 
-
 [Cahir](dist/cahir.0.0.0.evergreen.umd.js) is a function proxy that allows you interchangibly use tagged templates and method calls. You can use it as an imperative framework with declerative bits. You define the routines and you define the shortcuts.
 
 ## The famous TODO wars:
+Cahir is an imperative library, but still if you are wondering, how it looks:
+
+![cahir-todo](static/img/cahir_todo.png)
+
+The characters you use for method calls are completely customizible:
+
+```js
+__init__: Cahir.tagify({
+        strTransform: str => str
+            .trim()
+            .replace(/^\/>\s*/,"")
+            .replace(/^\|>/, "pipe")
+            ...
+            .replace(/^👊/gi, "runtime")
+            .replace(/^👈/gi, "appendTo")
+
+```
+
+Since `Ch` is a `Proxy`, you get to define how it reacts to keys that it does not have:
+
+```js
+ch.div //logs a div DOM object
+ch.li //logs a lig object
+```
+
+Can even do:
+
+```js
+ch[`li{
+    "attr":[["data-x", ${15}], ["data-y", ${0}]],
+    "prop":[["a",3],["b",2],["innerHTML", ${
+        `"<span>Hello World!</span>"`
+    }]]
+}`] //logs a li with data-x, data-y attributes with span as  child
+```
 
 
 ## What are the advantages?:
 
 - Create reusable `tagged template`s via `ch.pickle`
-- Instead of using an `object`/`class` and hop from method to method, directly mount all the methods on a base method.
 - Allow arbitrary method names to be intercepted
 - Use tagged templates to their full potential by allowing marking/spreading `value`s like namespaced variables
 - Interchange between tagged templates and method calls: 
