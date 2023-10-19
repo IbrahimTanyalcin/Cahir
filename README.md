@@ -17,7 +17,7 @@
 [Cahir](dist/cahir.0.0.0.evergreen.umd.js) is a function proxy that allows you interchangibly use tagged templates and method calls. You can use it as an imperative framework with declerative bits. You define the routines and you define the shortcuts.
 
 ## The famous TODO wars:
-Cahir is an imperative library, but still if you are wondering, how it looks:
+Cahir is an imperative library, but still if you are wondering, this is how it looks:
 
 ![cahir-todo](static/img/cahir_todo.png)
 
@@ -70,8 +70,8 @@ ch[`li{
 include the base script and your custom method collections (or the ones included in the `collections` folder of the repo):
 
 ```html
-<script src="static/js/cahir.0.0.0.evergreen.umd.js"></script>
-<script src="collections/DOM/ch.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cahir@0.0.1/dist/cahir.0.0.1.evergreen.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cahir@0.0.1/collections/DOM/ch.js"></script>
 ```
 
 ## Node/Bun
