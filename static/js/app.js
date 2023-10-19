@@ -129,11 +129,11 @@
     => ${({values}) => () => {
         const callback = ch.throttle(({val, prop, oldVal}) => {
             ch(values.pickle)
-        }, {delay: 100}).lastOp;
+        }, {delay: 100});
         values.data = cardData.slice(0,5).map(
-            d => ch.reactiveObject(d, {cb: callback})
+            d => ch.oref(d, {cb: callback})
         )
-        window.data = ch.reactiveArray(values.data, {
+        window.data = ch.aref(values.data, {
             cb: callback,
             cbChild: callback
         })
