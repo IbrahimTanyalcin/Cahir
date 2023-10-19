@@ -14,7 +14,7 @@
 [![npm badge](https://img.shields.io/npm/l/cahir)](https://www.npmjs.com/package/cahir)
 
 
-[Cahir](dist/cahir.0.0.0.evergreen.umd.js) is a function proxy that allows you interchangibly use tagged templates and method calls. You can use it as an imperative framework with declerative bits. You define the routines and you define the shortcuts.
+[Cahir](dist/cahir.0.0.1.evergreen.umd.js) is a function proxy that allows you interchangibly use tagged templates and method calls. You can use it as an imperative framework with declerative bits. You define the routines and you define the shortcuts.
 
 ## The famous TODO wars:
 Cahir is an imperative library, but still if you are wondering, this is how it looks:
