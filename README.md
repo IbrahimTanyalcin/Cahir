@@ -15,7 +15,10 @@
 
 
 
-[Cahir](dist/cahir.0.0.0.evergreen.umd.js) is a function proxy that allows you interchangibly use tagged templates and method calls.
+[Cahir](dist/cahir.0.0.0.evergreen.umd.js) is a function proxy that allows you interchangibly use tagged templates and method calls. You can use it as an imperative framework with declerative bits. You define the routines and you define the shortcuts.
+
+## The famous TODO wars:
+
 
 ## What are the advantages?:
 

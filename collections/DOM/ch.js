@@ -3,7 +3,6 @@ const ch = new Cahir({
         strTransform: str => str
             .trim()
             .replace(/^<((?:[a-z]+-+[a-z]*)+)/,"wc $1")
-            /* .replace(/^\/>|^<\/(?:[a-z]+-+[a-z]*)+>/,"") */
             .replace(/^\/>\s*/,"")
             .replace(/^\|>/, "pipe")
             .replace(/^\|</, "rPipe")
@@ -20,9 +19,19 @@ const ch = new Cahir({
             .replace(/^[+]\->/gi, "sappend")
             .replace(/^[+]</gi, "appendTo")
             .replace(/^[+]\-</gi, "sappendTo")
+            .replace(/^r>/gi, "replaceWith")
+            .replace(/^r->/gi, "sreplaceWith")
+            .replace(/^r</gi, "inplaceOf")
+            .replace(/^r\-</gi, "sinplaceOf")
             .replace(/^0>/gi, "noOP")
-            .replace(/^\[>/gi, "reactiveArray")
-            .replace(/^\{>/gi, "reactiveObject")
+            .replace(/^\[>/gi, "aref")
+            .replace(/^\{>/gi, "oref")
+            .replace(/^👌/gi, "noOP")
+            .replace(/^☝/gi, "invoke")
+            .replace(/^👉/gi, "sappend")
+            .replace(/^🤞/gi, "sreplaceWith")
+            .replace(/^👊/gi, "runtime")
+            .replace(/^👈/gi, "appendTo")
     })(function (...args) {
         if (args.length <= 1) {
             this.selected = args[0];
@@ -107,6 +116,9 @@ const ch = new Cahir({
                 return this;
             }
             [k, v] = k;
+            if (k === void(0)) {
+                return this;
+            }
         }
         this.selected[k] = this.lastOp = v;
         return this;
@@ -146,16 +158,18 @@ const ch = new Cahir({
     },
     satr: function (attr, val) {
         if (attr instanceof Array) {
-        	  return this.lastOp = attr.map(([k, v]) => { this.satr(k, v); return v });
+            this.lastOp = attr.map(([k, v]) => { this.satr(k, v); return v });
+        } else {
+            this.selected.setAttribute(attr, this.lastOp = val);
         }
-        this.selected.setAttribute(attr, this.lastOp = val);
         return this;
     },
     satrNS: function (attr, val, namespace) {
         if (attr instanceof Array) {
-            return this.lastOp = attr.map(([k, v, n]) => { this.satrNS(k, v, n); return v });
+            this.lastOp = attr.map(([k, v, n]) => { this.satrNS(k, v, n); return v });
+        } else {
+            this.selected.setAttributeNS(namespace, attr, this.lastOp = val);
         }
-        this.selected.setAttributeNS(namespace, attr, this.lastOp = val);
         return this;
     },
     unwrap: function(v) {
@@ -251,6 +265,22 @@ const ch = new Cahir({
         let lastEl;
         (this.lastOp = els).forEach(d => lastEl = this.selected.insertBefore(d, this.selected.firstElementChild));
         return this(lastEl);
+    },
+    replaceWith: function (node) {
+        this.lastOp = this.selected.parentNode.replaceChild(node, this.selected);
+        return this;
+    },
+    sreplaceWith: function (node) {
+        this.lastOp = this.selected.parentNode.replaceChild(node, this.selected);
+        return this(node);
+    },
+    inplaceOf: function (node) {
+        this.lastOp = node.parentNode.replaceChild(this.selected, node);
+        return this;
+    },
+    sinplaceOf: function (node) {
+        this.lastOp = node.parentNode.replaceChild(this.selected, node);
+        return this(node);
     },
     first: function () {
         return this(this.lastOp = this.selected.firstElementChild);
@@ -517,7 +547,7 @@ const ch = new Cahir({
     noOP: function(){
         return this;
     },
-    reactiveArray: ((sym, isIntLike) => function (arr, {
+    aref: ((sym, isIntLike) => function (arr, {
         cb,
         args,
         cbChild,
@@ -540,7 +570,7 @@ const ch = new Cahir({
             } else {
                 trgt[prop] = cbChild 
                     ? isIntLike(prop)
-                        ? that.reactiveObject(val, {
+                        ? that.oref(val, {
                             cb: cbChild, args: argsChild
                         })
                         : val
@@ -568,7 +598,7 @@ const ch = new Cahir({
             if (Number.isInteger(+v)) return true;
             return false;
     })),
-    reactiveObject: ((rgx, symIsReactive) => function (obj, {
+    oref: ((rgx, symIsReactive) => function (obj, {
         cb,
         args
     } = {}) {
@@ -642,7 +672,7 @@ const ch = new Cahir({
         let timeout,
             prom,
             resolver;
-        this.lastOp = function(...args) {
+        return this.lastOp = function(...args) {
             clearTimeout(timeout);
             thisArg = thisArg ?? that;
             if (resolver) {
@@ -660,7 +690,6 @@ const ch = new Cahir({
                 }, delay);
             })
         }
-        return this;
     },
     wc: ((symData, symInit) => function(name, args){
         const that = this;
@@ -724,5 +753,85 @@ const ch = new Cahir({
             return this.lastOp;
         }
         return this.lastOp.at(i);
-    }
+    },
+    state: function(oState){
+        if(!oState){
+            return {
+                selected: this.selected,
+                lastOp: this.lastOp
+            }
+        }
+        this(oState.selected);
+        this.lastOp = oState.lastOp;
+        return this;
+    },
+    dom: ((V, M) => function(...args) {
+        let html = "";
+        switch (true) {
+            case (!M.get("p")):
+                throw new DOMException(
+                    "No access to DOM is possible",
+                    "NotSupportedError"
+                )
+                break;
+            case (args?.[0]?.raw && Object.isFrozen(args[0])):
+                let strs = args[0],
+                    vals = args.slice(1);
+                for (let i = 0; i < strs.length; ++i){
+                    html += strs[i] + V(vals[i] ?? "")
+                }
+                break;
+            default:
+                html = args.reduce((ac,d) => ac += V(d))
+        }
+        const
+            p = M.get("p"),
+            c = M.get("c"),
+            nC = c.cloneNode();
+        M.set("c", nC);
+        try {
+            c.outerHTML = html;
+            return p.replaceChild(nC, p.firstElementChild);
+        } catch (err) {
+            p.replaceChildren(nC);
+            throw err;
+        }
+    })(...(() => {
+        const V = (v) => {
+            v = [v].flat();
+            return v.map(d => 
+                typeof d === "function"
+                ? d()
+                : d
+            ).join("")
+        }
+        let p,c;
+        try {
+            p = document.createElement("div"),
+            c = p.appendChild(document.createElement("div"));
+        } catch (err) {
+        } finally {
+            return [V, new Map([["p",p], ["c", c]])]
+        }
+    })()),
+    __interceptGet__: ((rgx, pass) => function (next, prop, receiver) {
+        switch (true) {
+            case (typeof prop === "symbol"):
+            case (pass.includes(prop)):
+                break;
+            case (!(prop in this)):
+                const state = this.state();
+                let {groups:{tag, opts = "{}"}} = rgx.exec(prop);
+                opts = JSON.parse(opts);
+                const el = document.createElement(tag);
+                this(el)
+                .style(opts?.style ?? [])
+                .satr(opts?.attr ?? [])
+                .satrNS(opts?.attrNS ?? [])
+                .set(opts?.prop ?? [])
+                .state(state);
+                return el;
+        }
+        next();
+    })(/^(?<tag>[a-z]+)(?<opts>\{.+\})?$/s, ["selected", "lastOp", "state"])
 });
