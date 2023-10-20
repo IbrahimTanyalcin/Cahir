@@ -818,6 +818,7 @@ const ch = new Cahir({
         switch (true) {
             case (typeof prop === "symbol"):
             case (pass.includes(prop)):
+            case (prop?.charAt?.(0) === "_"):
                 break;
             case (!(prop in this)):
                 const state = this.state();
@@ -833,5 +834,8 @@ const ch = new Cahir({
                 return el;
         }
         next();
-    })(/^(?<tag>[a-z]+)(?<opts>\{.+\})?$/s, ["selected", "lastOp", "state"])
+    })(
+        /^(?<tag>[a-z]+)(?<opts>\{.+\})?$/s,
+        ["selected", "lastOp", "state", "dataRoot"]
+    )
 });
