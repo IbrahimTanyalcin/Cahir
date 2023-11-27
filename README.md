@@ -70,8 +70,8 @@ ch[`li{
 include the base script and your custom method collections (or the ones included in the `collections` folder of the repo):
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/cahir@0.0.4/dist/cahir.0.0.4.evergreen.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cahir@0.0.4/collections/DOM/ch.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cahir@0.0.5/dist/cahir.0.0.5.evergreen.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cahir@0.0.5/collections/DOM/ch.js"></script>
 ```
 
 ## Node/Bun
