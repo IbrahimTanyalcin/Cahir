@@ -1,6 +1,6 @@
 {
   "name": "cahir",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "description": "flexible interface for method chaining using Proxy and tagged template literals",
   "main": "./dist/cahir.0.0.0.evergreen.umd.min.js",
