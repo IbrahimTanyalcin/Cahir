@@ -677,7 +677,7 @@ const ch = new Cahir({
             thisArg = thisArg ?? that;
             if (resolver) {
                 timeout = setTimeout(() => {
-                    resolver(f.apply(thisArg, args));
+                    resolver?.(f.apply(thisArg, args));
                     resolver = prom = null;
                 }, delay);
                 return prom;
