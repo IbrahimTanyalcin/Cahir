@@ -1,9 +1,9 @@
 {
   "name": "cahir",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "description": "flexible interface for method chaining using Proxy and tagged template literals",
-  "main": "./dist/cahir.0.0.5.evergreen.umd.min.js",
+  "main": "./dist/cahir.0.0.6.evergreen.umd.min.js",
   "scripts": {
     "test": "cross-env-shell CHAIN_VERSION=${npm_package_version} jest --ci",
     "buildEvergreen": "cross-env-shell CHAIN_VERSION=${npm_package_version} CHAIN_GLOBAL_NAME=${npm_package_name} rollup -c ./rollup.config.evergreen.js",
