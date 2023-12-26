@@ -12,22 +12,42 @@ export default args => {
 					return m.slice(-1).toUpperCase();
 				}
 		);
-	return {
-		input: 'src/index.js',
-		output: [
-			{
-				file: `dist/${name.toLowerCase()}.` + version + '.evergreen.umd.js',
-				format: 'umd',
-				name: name
-			},
-			{
-				file: `dist/${name.toLowerCase()}.` + version + '.evergreen.es.js',
-				format: 'es',
-				name: name
-			}
-		],
-		plugins:[
-			resolve()
-		]
-	}
+	return [
+		{
+			input: 'src/index.js',
+			output: [
+				{
+					file: `dist/${name.toLowerCase()}.` + version + '.evergreen.umd.js',
+					format: 'umd',
+					name: name
+				},
+				{
+					file: `dist/${name.toLowerCase()}.` + version + '.evergreen.es.js',
+					format: 'es',
+					name: name
+				}
+			],
+			plugins:[
+				resolve()
+			]
+		},
+		{
+			input: 'collections/DOM/collection.js',
+			output: [
+				{
+					file: `dist/${name.toLowerCase()}.` + version + 'collectons.dom.evergreen.umd.js',
+					format: 'umd',
+					name: `${name}.collections.dom.${version}`.toLowerCase().replaceAll(".","_")
+				},
+				{
+					file: `dist/${name.toLowerCase()}.` + version + 'collections.dom.evergreen.es.js',
+					format: 'es',
+					name: `${name}.collections.dom.${version}`.toLowerCase().replaceAll(".","-")
+				}
+			],
+			plugins:[
+				resolve()
+			]
+		},
+	]
 };
