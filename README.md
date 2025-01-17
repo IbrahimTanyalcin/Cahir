@@ -74,6 +74,10 @@ include the base script and your custom method collections (or the ones included
 <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.6/collections/DOM/ch.js"></script>
 ```
 
+## Web Components
+
+For a set of native web components, see [components](./components/)
+
 ## Node/Bun
 
 ```shell
