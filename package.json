@@ -35,7 +35,10 @@
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.0.1",
     "cross-env": "^7.0.3",
-    "rollup": "^3.10.0",
+    "rollup": "^3.29.5",
     "uglify-js": "^3.17.4"
+  },
+  "overrides": {
+    "cross-spawn": "7.0.5"
   }
 }
