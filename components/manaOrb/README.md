@@ -74,3 +74,6 @@ Above first translates the element to origin (`translate(-50 -50)`), scales it b
 - **data-update-delay**: Attribute updates are batched and throttled. This attribute defines the interval these updates are called, in ms. Default 50.
 - **data-resize-delay**: Unless you have custom css, the element will resize itself if the parent dimensions change. This value determines the interval, in ms, of resize calls. Default 500.
 - **data-toggle-delay**: The animation duration of `el.toggle()` calls. Default 50, in ms.
+
+## Credits
+The idea of using `animateTransform` to animate a pattern is not mine, see this [great twitter post](https://x.com/bbssppllvv/status/1844450794298634307).
