@@ -1,22 +1,41 @@
 {
   "name": "cahir",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "module",
   "description": "flexible interface for method chaining using Proxy and tagged template literals",
-  "main": "./dist/cahir.0.0.7.evergreen.umd.min.js",
+  "main": "./dist/cahir.0.0.9.evergreen.umd.min.js",
   "exports": {
-    "require": "./dist/cahir.0.0.8.evergreen.umd.min.js",
-    "import": "./dist/cahir.0.0.8.evergreen.es.min.js"
+    ".": {
+      "require": "./dist/cahir.0.0.9.evergreen.umd.min.cjs",
+      "browser": "./dist/cahir.0.0.9.evergreen.umd.min.js",
+      "import": "./dist/cahir.0.0.9.evergreen.es.min.js"
+    },
+    "./collections/DOM": {
+      "require": "./collections/DOM/ch.0.0.9.cjs",
+      "browser": "./collections/DOM/ch.0.0.9.js",
+      "import": "./collections/DOM/ch.0.0.9.es.js"
+    },
+    "./components/manaOrb": {
+      "browser": "./components/manaOrb/mana-orb.0.0.9.js",
+      "import": "./components/manaOrb/mana-orb.0.0.9.es.js"
+    },
+    "./components/simpleChat": {
+      "browser": "./components/simpleChat/simple-chat.0.0.9.js",
+      "import": "./components/simpleChat/simple-chat.0.0.9.es.js"
+    }
   },
   "scripts": {
     "test": "cross-env-shell CHAIN_VERSION=${npm_package_version} jest --ci",
     "buildEvergreen": "cross-env-shell CHAIN_VERSION=${npm_package_version} CHAIN_GLOBAL_NAME=${npm_package_name} rollup -c ./rollup.config.evergreen.js",
     "minEvergreenUMD": "cross-env-shell uglifyjs ./dist/cahir.${npm_package_version}.evergreen.umd.js -o ./dist/cahir.${npm_package_version}.evergreen.umd.min.js",
+    "minEvergreenCJS": "cross-env-shell uglifyjs ./dist/cahir.${npm_package_version}.evergreen.umd.cjs -o ./dist/cahir.${npm_package_version}.evergreen.umd.min.cjs",
     "minEvergreenES": "cross-env-shell uglifyjs ./dist/cahir.${npm_package_version}.evergreen.es.js -o ./dist/cahir.${npm_package_version}.evergreen.es.min.js",
-    "minEvergreen": "cross-env-shell npm run minEvergreenUMD && npm run minEvergreenES",
+    "minEvergreen": "cross-env-shell npm run minEvergreenUMD && npm run minEvergreenES && npm run minEvergreenCJS",
     "build": "cross-env-shell npm run buildEvergreen && npm run minEvergreen"
   },
   "keywords": [
+    "webcomponents",
+    "DOM",
     "method",
     "chain",
     "chaining",

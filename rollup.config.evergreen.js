@@ -21,6 +21,11 @@ export default args => {
 				name: name
 			},
 			{
+				file: `dist/${name.toLowerCase()}.` + version + '.evergreen.umd.cjs',
+				format: 'umd',
+				name: name
+			},
+			{
 				file: `dist/${name.toLowerCase()}.` + version + '.evergreen.es.js',
 				format: 'es',
 				name: name
