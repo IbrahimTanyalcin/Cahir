@@ -723,7 +723,8 @@ const ch = new Cahir({
                     {...this[symData], el: this, proto: genWc.prototype}
                 )
             }
-            genWc.name = name;
+            //genWc.name = name;
+            Object.defineProperty(genWc, "name", { value: name });
             Object.setPrototypeOf(genWc, HTMLElement);
             customElements.define(name, genWc);
         }

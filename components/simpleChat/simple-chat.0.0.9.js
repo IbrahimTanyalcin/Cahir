@@ -131,6 +131,10 @@ const simpleChat = ((symbols) => {
             if(!send){return}
             ch(send).off(`@${namespace}`).state(state);
             return this;
+          },
+          _onready = function(f, ...args){
+            this.ready().then(() => f.apply(this, args));
+            return this;
           }; 
   return function simpleChat({name, attrs, styles, props, data, el, proto}) {
     if (!el[symbols.initialized]){
@@ -475,8 +479,17 @@ const simpleChat = ((symbols) => {
           get: function(){ return _offsend},
           set: function(namespace){ this.offsend(namespace)},
           configurable: false
+        },
+        onready: {
+          get: function(){return _onready },
+          set: function(f){ this.onready(f)},
+          configurable: false
         }
       });
+      proto.ready = function(){
+        const v = wk.get(this); //values
+        return v.readyPromise;
+      }
     }
     const shadow = el[symbols.shadow] = el.attachShadow({ mode: "open" });
     let state = 0,
@@ -492,6 +505,8 @@ const simpleChat = ((symbols) => {
       el[symbols.upAttrs] = ch.throttle(el[symbols.upAttrs], {delay: updateDelay});
       el[symbols.upStyles] = ch.throttle(el[symbols.upStyles], {delay: updateDelay});
       el[symbols.upSvg] = ch.throttle(el[symbols.upSvg], {delay: updateDelay});
+      /*ready mechanism*/
+      v.readyPromise = new Promise(r => v.ready = r);
     }}
     => ${({values}) => async () => {
       if (!wk.has(el)){wk.set(el, values)}
@@ -1142,6 +1157,7 @@ const simpleChat = ((symbols) => {
     |> await ${({values:v}) => async () => {shadow.querySelector("style").sheet.cssRules[1].style.setProperty("transition", "all 0.4s ease")}}
     |> await ${({values:v}) => async () => v.mutObs.observe(el, {childList: true, subtree: true, attributes: true, characterData: true})}
     |> await ${({values:v}) => async () => v.main.scrollTop = v.main.scrollHeight}
+    |> await ${({values:v}) => async () => v.ready(true)}
     `
   }})(
     {

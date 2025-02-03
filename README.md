@@ -67,11 +67,50 @@ ch[`li{
 
 ## Browser/Installation
 
+### regular script
+
 include the base script and your custom method collections (or the ones included in the `collections` folder of the repo):
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/cahir@0.0.6/dist/cahir.0.0.6.evergreen.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cahir@0.0.6/collections/DOM/ch.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cahir@0.0.9/dist/cahir.0.0.9.evergreen.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cahir@0.0.9/collections/DOM/ch.0.0.9.js"></script>
+```
+
+### es module browser
+
+for components
+```html
+<script type="module" src="./components/simpleChat/simple-chat.0.0.9.es.js"></script>
+```
+
+or for DOM library only
+```html
+<script type="module" src="./collections/DOM/ch.0.0.9.es.js"></script>
+```
+
+or for just Cahir to construct your own method chaining/tagged template library
+```html
+<script type="module" src="./dist/cahir.0.0.9.evergreen.es.js"></script>
+```
+
+### npm module
+
+```shell
+npm i cahir
+```
+
+## Usage
+
+### common js 
+```js
+const ch = require("cahir/collections/DOM");
+const Cahir = require("cahir");
+```
+
+### es module
+```js
+import ch from "cahir/collections/DOM";
+import Cahir from "cahir";
 ```
 
 ## Web Components
