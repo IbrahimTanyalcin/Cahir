@@ -4,6 +4,8 @@
   <source src="https://ibrahimtanyalcin.github.io/Cahir/static/video/simple-chat-demo.mp4" type="video/mp4">
 </video>
 
+![gif](https://ibrahimtanyalcin.github.io/Cahir/static/gif/simple-chat-demo.gif)
+
 👉 [Codepen](https://codepen.io/IbrahimTanyalcin/pen/VYZNOvX)
 
 Simple-chat is a tool you can use to create flowing chat mechanism with LLM agents or other projects that need a chat box that are required to adapt to a stream of chunked parts.
