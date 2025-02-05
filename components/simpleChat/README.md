@@ -1,7 +1,7 @@
 # SIMPLECHAT
 
 <video width="480" height="auto" controls>
-  <source src="./simple-chat-demo.mp4" type="video/mp4">
+  <source src="https://ibrahimtanyalcin.github.io/Cahir/static/video/simple-chat-demo.mp4" type="video/mp4">
 </video>
 
 👉 [Codepen](https://codepen.io/IbrahimTanyalcin/pen/VYZNOvX)
