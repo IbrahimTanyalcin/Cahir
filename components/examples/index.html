@@ -47,16 +47,26 @@
                         flex-shrink: 1;
                     }
                 }
+                bioinfo-input {
+                    width: 90%;
+                }
+            }
+        }
+        @layer override {
+            simple-upload {
+                --bg-color: #f9f9f9;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Testing Mana Orb Web Component</h1>
+    <h1 style="text-align: center;">Testing Cahir Web Components</h1>
 
     <!-- Importing the mana-orb script -->
-    <script type="module" src="./components/manaOrb/mana-orb.0.0.9.es.js"></script>
-    <script type="module" src="./components/simpleChat/simple-chat.0.0.9.es.js"></script>
+    <script type="module" src="./components/manaOrb/mana-orb.0.0.10.es.js"></script>
+    <script type="module" src="./components/simpleChat/simple-chat.0.0.10.es.js"></script>
+    <script type="module" src="./components/bioinfoInput/bioinfo-input.0.0.10.es.js"></script>
+    <script type="module" src="./components/simpleUpload/simple-upload.0.0.10.es.js"></script>
     <div id="main-wrapper">
         <div>
             <h2>mana-orb</h2>
@@ -78,8 +88,35 @@
                 }()
             </script>
         </div>
-        <div></div>
-        <div></div>
+        <div>
+            <h2>bioinfo-input</h2>
+            <bioinfo-input data-colors="font,#787878" data-label="your label" data-fadein data-anycase></bioinfo-input>
+        </div>
+        <div>
+            <h2>simple-upload</h2>
+            <div><simple-upload data-stream-enqueue-delay="1"></simple-upload></div>
+            <script>
+                window.addEventListener("load", async function(){
+                    await customElements.whenDefined("simple-upload");
+                    const upload = document.body.querySelector("simple-upload");
+                    await upload.ready();
+                    upload.onsend(async (args) => {
+                        //return new Promise((r,j) => setTimeout(r, 10000));
+                        //return new Promise((r,j) => setTimeout(() => args.abort.abort("some reason here!"), 10000));
+                        //return fetch(..., {...,signal: args.abort.signal})
+                        const mockFetch = async function* (){
+                            for (let i =0; i < 100; ++i){
+                                if (args.abort.signal.aborted){break}
+                                yield new Promise(r => setTimeout(() => r(i), 100)); 
+                            }
+                        }
+                        for await (const step of mockFetch()){
+                            args.progress.set(step/100);
+                        }
+                    })
+                })
+            </script>
+        </div>
         <div></div>
         <div></div>
         <div></div>

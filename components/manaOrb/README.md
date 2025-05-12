@@ -10,16 +10,16 @@ A native webcomponent that can be used as loaders or icons or designate on going
 ### regular script
 
 ```html
-  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.9/dist/cahir.0.0.9.evergreen.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.9/collections/DOM/ch.0.0.9.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.9/components/manaOrb/mana-orb.0.0.9.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/dist/cahir.0.0.10.evergreen.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/collections/DOM/ch.0.0.10.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/components/manaOrb/mana-orb.0.0.10.js"></script>
 ```
 
 3 scripts above amount to 15Kb in total, gziped.
 
 ### es module
 ```html
-<script type="module" src="./components/manaOrb/mana-orb.0.0.9.es.js"></script>
+<script type="module" src="./components/manaOrb/mana-orb.0.0.10.es.js"></script>
 ```
 
 If you use a bundler, it should be able to handle the dependencies. If not please reach out to me and open an issue.

@@ -17,14 +17,14 @@ Has 0 opinions on how the backend should respond or what it should receive. Simp
 ### regular script
 
 ```html
-  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.9/dist/cahir.0.0.9.evergreen.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.9/collections/DOM/ch.0.0.9.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.9/components/simpleChat/simple-chat.0.0.9.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/dist/cahir.0.0.10.evergreen.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/collections/DOM/ch.0.0.10.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/components/simpleChat/simple-chat.0.0.10.js"></script>
 ```
 
 ### es module
 ```html
-<script type="module" src="./components/simpleChat/simple-chat.0.0.9.es.js"></script>
+<script type="module" src="./components/simpleChat/simple-chat.0.0.10.es.js"></script>
 ```
 
 If you use a bundler, it should be able to handle the dependencies. If not please reach out to me and open an issue.

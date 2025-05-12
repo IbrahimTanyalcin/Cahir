@@ -1,27 +1,27 @@
 {
   "name": "cahir",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "type": "module",
   "description": "flexible interface for method chaining using Proxy and tagged template literals",
-  "main": "./dist/cahir.0.0.9.evergreen.umd.min.js",
+  "main": "./dist/cahir.0.0.10.evergreen.umd.min.js",
   "exports": {
     ".": {
-      "require": "./dist/cahir.0.0.9.evergreen.umd.min.cjs",
-      "browser": "./dist/cahir.0.0.9.evergreen.umd.min.js",
-      "import": "./dist/cahir.0.0.9.evergreen.es.min.js"
+      "require": "./dist/cahir.0.0.10.evergreen.umd.min.cjs",
+      "browser": "./dist/cahir.0.0.10.evergreen.umd.min.js",
+      "import": "./dist/cahir.0.0.10.evergreen.es.min.js"
     },
     "./collections/DOM": {
-      "require": "./collections/DOM/ch.0.0.9.cjs",
-      "browser": "./collections/DOM/ch.0.0.9.js",
-      "import": "./collections/DOM/ch.0.0.9.es.js"
+      "require": "./collections/DOM/ch.0.0.10.cjs",
+      "browser": "./collections/DOM/ch.0.0.10.js",
+      "import": "./collections/DOM/ch.0.0.10.es.js"
     },
     "./components/manaOrb": {
-      "browser": "./components/manaOrb/mana-orb.0.0.9.js",
-      "import": "./components/manaOrb/mana-orb.0.0.9.es.js"
+      "browser": "./components/manaOrb/mana-orb.0.0.10.js",
+      "import": "./components/manaOrb/mana-orb.0.0.10.es.js"
     },
     "./components/simpleChat": {
-      "browser": "./components/simpleChat/simple-chat.0.0.9.js",
-      "import": "./components/simpleChat/simple-chat.0.0.9.es.js"
+      "browser": "./components/simpleChat/simple-chat.0.0.10.js",
+      "import": "./components/simpleChat/simple-chat.0.0.10.es.js"
     }
   },
   "scripts": {
@@ -50,7 +50,7 @@
     "ES10"
   ],
   "author": "Ibrahim Tanyalcin",
-  "license": "MIT",
+  "license": "AGPL-3.0-only",
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.0.1",
     "cross-env": "^7.0.3",

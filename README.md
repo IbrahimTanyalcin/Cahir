@@ -13,8 +13,16 @@
 [![DOI](https://zenodo.org/badge/591137155.svg)](https://zenodo.org/badge/latestdoi/591137155)
 [![npm badge](https://img.shields.io/npm/l/cahir)](https://www.npmjs.com/package/cahir)
 
+*[Cahir](dist/cahir.0.0.10.evergreen.umd.js) is a function proxy that allows you interchangibly use tagged templates and method calls. You can use it as an imperative framework with declerative bits. You define the routines and you define the shortcuts.*
 
-[Cahir](dist/cahir.0.0.1.evergreen.umd.js) is a function proxy that allows you interchangibly use tagged templates and method calls. You can use it as an imperative framework with declerative bits. You define the routines and you define the shortcuts.
+## What's with the name
+
+The name is taken from a character in a card game called gwent where if the opponent heals during current turn, the character heals as well. This resonates well with the library: it is an implementation based on `Proxy`.
+
+## What do you want? 
+- Use web components in your project? here 👉 [components](components/README.md)
+- Use cahir for adding/removing/animating html elements (like D3, jquery etc.)? here 👉 [collections/DOM](collections/DOM/) *documentation in progress*
+- Use cahir to enable your custom function to interoperate with tagged templates and method calls? here 👉 [dist](dist/cahir.0.0.10.evergreen.es.js) *read below to see how it works*
 
 ## The famous TODO wars:
 Cahir is an imperative library, but still if you are wondering, this is [**how it works**](https://codepen.io/IbrahimTanyalcin/pen/ExrYZZG):
@@ -72,25 +80,25 @@ ch[`li{
 include the base script and your custom method collections (or the ones included in the `collections` folder of the repo):
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/cahir@0.0.9/dist/cahir.0.0.9.evergreen.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cahir@0.0.9/collections/DOM/ch.0.0.9.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/dist/cahir.0.0.10.evergreen.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/collections/DOM/ch.0.0.10.js"></script>
 ```
 
 ### es module browser
 
 for components
 ```html
-<script type="module" src="./components/simpleChat/simple-chat.0.0.9.es.js"></script>
+<script type="module" src="./components/simpleChat/simple-chat.0.0.10.es.js"></script>
 ```
 
 or for DOM library only
 ```html
-<script type="module" src="./collections/DOM/ch.0.0.9.es.js"></script>
+<script type="module" src="./collections/DOM/ch.0.0.10.es.js"></script>
 ```
 
 or for just Cahir to construct your own method chaining/tagged template library
 ```html
-<script type="module" src="./dist/cahir.0.0.9.evergreen.es.js"></script>
+<script type="module" src="./dist/cahir.0.0.10.evergreen.es.js"></script>
 ```
 
 ### npm module
