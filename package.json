@@ -22,6 +22,14 @@
     "./components/simpleChat": {
       "browser": "./components/simpleChat/simple-chat.0.0.10.js",
       "import": "./components/simpleChat/simple-chat.0.0.10.es.js"
+    },
+    "./components/bioinfoInput": {
+      "browser": "./components/bioinfoInput/bioinfo-input.0.0.10.js",
+      "import": "./components/bioinfoInput/bioinfo-input.0.0.10.es.js"
+    },
+    "./components/simpleUpload": {
+      "browser": "./components/simpleUpload/simple-upload.0.0.10.js",
+      "import": "./components/simpleUpload/simple-upload.0.0.10.es.js"
     }
   },
   "scripts": {
