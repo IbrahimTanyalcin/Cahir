@@ -28,7 +28,7 @@ The first 2 are cahir library itself and a selection of DOM methods that are sha
 ### es module
 ```html
 <script type="module" src="./components/bioinfoInput/bioinfo-input.0.0.10.es.js"></script>
-<script type="module" src="./components/simpleChat/simple-chat.0.0.10.es.js"></script>
+<script type="module" src="./components/simpleUpload/simple-upload.0.0.10.es.js"></script>
 ```
 
 If you use a bundler, it should be able to handle the dependencies. If not please reach out to me and open an issue.
@@ -141,7 +141,7 @@ simpleUploadEl.disableTextarea(); //disables textarea
 simpleUploadEl.enableTextarea(); //enables textarea
 simpleUploadEl.disableDragndrop(); //disables drag and drop
 simpleUploadEl.enableDragndrop(); //enables drag and drop
-simpleUploadEl.setHeaderTitle("custom-title"); //changes the default SimpleChat title
+simpleUploadEl.setHeaderTitle("custom-title"); //changes the default FileUpload title
 simpleUploadEl.setPlaceholder(ph); //replaces the default placeholder string
 simpleUploadEl.setOverrideMime(mime); //overrides the automatic mime detection with the passed mime argument, like 'text/plain'. If no argument is given, it is removed.
 simpleUploadEl.setFilenameMessage(msg); //replaces the default invalid filename message

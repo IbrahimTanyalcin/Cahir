@@ -15,7 +15,7 @@
 
 *[Cahir](dist/cahir.0.0.10.evergreen.umd.js) is a function proxy that allows you interchangibly use tagged templates and method calls. You can use it as an imperative framework with declerative bits. You define the routines and you define the shortcuts.*
 
-## What's with the name
+## What's with the name?
 
 The name is taken from a character in a card game called gwent where if the opponent heals during current turn, the character heals as well. This resonates well with the library: it is an implementation based on `Proxy`.
 
