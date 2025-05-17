@@ -28,10 +28,10 @@ The name is taken from a character in a card game called gwent where if the oppo
 <!---```
 <custom-element-demo height="400">
   <template>
-    <script type="module">
-    import "https://cdn.jsdelivr.net/npm/cahir@0.0.10/components/bioinfoInput/bioinfo-input.0.0.10.es.js";
-import "https://cdn.jsdelivr.net/npm/cahir@0.0.10/components/simpleUpload/simple-upload.0.0.10.es.js";
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/dist/cahir.0.0.10.evergreen.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/collections/DOM/ch.0.0.10.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/components/bioinfoInput/bioinfo-input.0.0.10.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/components/simpleUpload/simple-upload.0.0.10.js"></script>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
