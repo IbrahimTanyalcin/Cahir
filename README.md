@@ -24,6 +24,22 @@ The name is taken from a character in a card game called gwent where if the oppo
 - Use cahir for adding/removing/animating html elements (like D3, jquery etc.)? here 👉 [collections/DOM](collections/DOM/) *documentation in progress*
 - Use cahir to enable your custom function to interoperate with tagged templates and method calls? here 👉 [dist](dist/cahir.0.0.10.evergreen.es.js) *read below to see how it works*
 
+## Demo
+<!---```
+<custom-element-demo height="400">
+  <template>
+    <script type="module">
+    import "https://cdn.jsdelivr.net/npm/cahir@0.0.10/components/bioinfoInput/bioinfo-input.0.0.10.es.js";
+import "https://cdn.jsdelivr.net/npm/cahir@0.0.10/components/simpleUpload/simple-upload.0.0.10.es.js";
+    </script>
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```-->
+```html
+<simple-upload data-stream-enqueue-delay="1"></simple-upload>
+```
+
 ## The famous TODO wars:
 Cahir is an imperative library, but still if you are wondering, this is [**how it works**](https://codepen.io/IbrahimTanyalcin/pen/ExrYZZG):
 

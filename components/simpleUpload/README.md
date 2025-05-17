@@ -12,22 +12,6 @@ Simple-upload is a tool you can use to provide interactive file upload/form beha
 
 Has 0 opinions on how the backend should respond or what it should receive. Simple-upload is a pure UI component, you get to control how the upload should take place between frontend and backend. It gives you files, text and validated user inputs and handles the abort issues without you writing boiler plate code.
 
-## Demo
-<!---```
-<custom-element-demo height="400">
-  <template>
-    <script type="module">
-    import "https://cdn.jsdelivr.net/npm/cahir@0.0.10/components/bioinfoInput/bioinfo-input.0.0.10.es.js";
-import "https://cdn.jsdelivr.net/npm/cahir@0.0.10/components/simpleUpload/simple-upload.0.0.10.es.js";
-    </script>
-    <next-code-block></next-code-block>
-  </template>
-</custom-element-demo>
-```-->
-```html
-<simple-upload data-stream-enqueue-delay="1"></simple-upload>
-```
-
 ## Installation
 
 ### regular script
