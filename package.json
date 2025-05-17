@@ -4,6 +4,14 @@
   "type": "module",
   "description": "flexible interface for method chaining using Proxy and tagged template literals",
   "main": "./dist/cahir.0.0.10.evergreen.umd.min.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IbrahimTanyalcin/Cahir.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IbrahimTanyalcin/Cahir/issues"
+  },
+  "homepage": "https://ibrahimtanyalcin.github.io/Cahir/",
   "exports": {
     ".": {
       "require": "./dist/cahir.0.0.10.evergreen.umd.min.cjs",
