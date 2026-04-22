@@ -1,4 +1,4 @@
-import Cahir from "../../dist/cahir.0.0.10.evergreen.es.min.js";
+import Cahir from "../../dist/cahir.0.1.0.evergreen.es.min.js";
 const ch = new Cahir({
     __init__: Cahir.tagify({
         strTransform: str => str

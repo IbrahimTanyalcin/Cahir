@@ -1,4 +1,4 @@
-import ch from "../../collections/DOM/ch.0.0.10.es.js";
+import ch from "../../collections/DOM/ch.0.1.0.es.js";
 const simpleChat = ((symbols) => {
     "use strict";
     const wk = new WeakMap(),

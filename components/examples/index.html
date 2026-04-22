@@ -19,7 +19,7 @@
                 display: flex;
                 flex-wrap: wrap;
                 flex-direction: row;
-                align-items: center;
+                align-items: start;
                 justify-content: center;
                 container: component-container;
                 container-type: inline-size;
@@ -63,10 +63,11 @@
     <h1 style="text-align: center;">Testing Cahir Web Components</h1>
 
     <!-- Importing the mana-orb script -->
-    <script type="module" src="./components/manaOrb/mana-orb.0.0.10.es.js"></script>
-    <script type="module" src="./components/simpleChat/simple-chat.0.0.10.es.js"></script>
-    <script type="module" src="./components/bioinfoInput/bioinfo-input.0.0.10.es.js"></script>
-    <script type="module" src="./components/simpleUpload/simple-upload.0.0.10.es.js"></script>
+    <script type="module" src="./components/manaOrb/mana-orb.0.1.0.es.js"></script>
+    <script type="module" src="./components/simpleChat/simple-chat.0.1.0.es.js"></script>
+    <script type="module" src="./components/bioinfoInput/bioinfo-input.0.1.0.es.js"></script>
+    <script type="module" src="./components/simpleUpload/simple-upload.0.1.0.es.js"></script>
+    <script type="module" src="./components/pointerOrb/pointer-orb.0.1.0.es.js"></script>
     <div id="main-wrapper">
         <div>
             <h2>mana-orb</h2>
@@ -117,7 +118,17 @@
                 })
             </script>
         </div>
-        <div></div>
+        <div>
+            <h2>pointer-orb</h2>
+            <div style="margin: auto;text-align: center;display: flex;justify-content: center;align-items: center;overflow: hidden; outline: 2px solid red;width:90%;height:90%; clip-path: inset(-2px);">
+                HOVER ME
+                <pointer-orb data-padding="0px" data-border-radius="30%" data-background-bubble="green" data-background-satellite="blue" data-background-primary="lightblue" data-width="45">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -10" result="filter"></feColorMatrix>
+                    <feComposite in="SourceGraphic" in2="filter" operator="atop"/></feComposite>
+                </pointer-orb>
+            </div>
+        </div>
         <div></div>
         <div></div>
         <div></div>

@@ -68,6 +68,7 @@ oldertests/
 olderTests/
 dev/
 junk/
+debug/
 
 #Thumbs.db on windows
 Thumbs.db
