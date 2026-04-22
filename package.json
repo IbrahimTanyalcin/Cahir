@@ -1,35 +1,39 @@
 {
   "name": "cahir",
-  "version": "0.0.10",
+  "version": "0.1.0",
   "type": "module",
   "description": "flexible interface for method chaining using Proxy and tagged template literals",
-  "main": "./dist/cahir.0.0.10.evergreen.umd.min.js",
+  "main": "./dist/cahir.0.1.0.evergreen.umd.min.js",
   "exports": {
     ".": {
-      "require": "./dist/cahir.0.0.10.evergreen.umd.min.cjs",
-      "browser": "./dist/cahir.0.0.10.evergreen.umd.min.js",
-      "import": "./dist/cahir.0.0.10.evergreen.es.min.js"
+      "require": "./dist/cahir.0.1.0.evergreen.umd.min.cjs",
+      "browser": "./dist/cahir.0.1.0.evergreen.umd.min.js",
+      "import": "./dist/cahir.0.1.0.evergreen.es.min.js"
     },
     "./collections/DOM": {
-      "require": "./collections/DOM/ch.0.0.10.cjs",
-      "browser": "./collections/DOM/ch.0.0.10.js",
-      "import": "./collections/DOM/ch.0.0.10.es.js"
+      "require": "./collections/DOM/ch.0.1.0.cjs",
+      "browser": "./collections/DOM/ch.0.1.0.js",
+      "import": "./collections/DOM/ch.0.1.0.es.js"
     },
     "./components/manaOrb": {
-      "browser": "./components/manaOrb/mana-orb.0.0.10.js",
-      "import": "./components/manaOrb/mana-orb.0.0.10.es.js"
+      "browser": "./components/manaOrb/mana-orb.0.1.0.js",
+      "import": "./components/manaOrb/mana-orb.0.1.0.es.js"
     },
     "./components/simpleChat": {
-      "browser": "./components/simpleChat/simple-chat.0.0.10.js",
-      "import": "./components/simpleChat/simple-chat.0.0.10.es.js"
+      "browser": "./components/simpleChat/simple-chat.0.1.0.js",
+      "import": "./components/simpleChat/simple-chat.0.1.0.es.js"
     },
     "./components/bioinfoInput": {
-      "browser": "./components/bioinfoInput/bioinfo-input.0.0.10.js",
-      "import": "./components/bioinfoInput/bioinfo-input.0.0.10.es.js"
+      "browser": "./components/bioinfoInput/bioinfo-input.0.1.0.js",
+      "import": "./components/bioinfoInput/bioinfo-input.0.1.0.es.js"
     },
     "./components/simpleUpload": {
-      "browser": "./components/simpleUpload/simple-upload.0.0.10.js",
-      "import": "./components/simpleUpload/simple-upload.0.0.10.es.js"
+      "browser": "./components/simpleUpload/simple-upload.0.1.0.js",
+      "import": "./components/simpleUpload/simple-upload.0.1.0.es.js"
+    },
+    "./components/pointerOrb": {
+      "browser": "./components/pointerOrb/pointer-orb.0.1.0.js",
+      "import": "./components/pointerOrb/pointer-orb.0.1.0.es.js"
     }
   },
   "scripts": {
@@ -62,7 +66,7 @@
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.0.1",
     "cross-env": "^7.0.3",
-    "rollup": "^3.29.5",
+    "rollup": "^3.30.0",
     "uglify-js": "^3.17.4"
   },
   "overrides": {

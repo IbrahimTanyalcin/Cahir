@@ -1,3 +1,4 @@
+import ch from "../../collections/DOM/ch.0.1.0.es.js";
 const manaOrb = ((symbols) => function manaOrb({name, attrs, styles, props, data, el, proto}) {
     if (!el[symbols.initialized]){
       proto[symbols.initialized] = true;
@@ -218,6 +219,7 @@ const manaOrb = ((symbols) => function manaOrb({name, attrs, styles, props, data
             case "characterData-host":
               //console.log("characterData-host");
               el[symbols.upClipPath]({values, el});
+              break;
             case "childList-slot":
               //console.log("childList-slot");
               el[symbols.upClipPath]({values, el});

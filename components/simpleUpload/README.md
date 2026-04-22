@@ -17,18 +17,18 @@ Has 0 opinions on how the backend should respond or what it should receive. Simp
 ### regular script
 
 ```html
-  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/dist/cahir.0.0.10.evergreen.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/collections/DOM/ch.0.0.10.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/components/bioinfoInput/bioinfo-input.0.0.10.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/cahir@0.0.10/components/simpleUpload/simple-upload.0.0.10.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cahir@0.1.0/dist/cahir.0.1.0.evergreen.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cahir@0.1.0/collections/DOM/ch.0.1.0.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cahir@0.1.0/components/bioinfoInput/bioinfo-input.0.1.0.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cahir@0.1.0/components/simpleUpload/simple-upload.0.1.0.js"></script>
 ```
 
 The first 2 are cahir library itself and a selection of DOM methods that are shared accross all ui elements, the 3rd script is another cahir web component for providing a user input.
 
 ### es module
 ```html
-<script type="module" src="./components/bioinfoInput/bioinfo-input.0.0.10.es.js"></script>
-<script type="module" src="./components/simpleUpload/simple-upload.0.0.10.es.js"></script>
+<script type="module" src="./components/bioinfoInput/bioinfo-input.0.1.0.es.js"></script>
+<script type="module" src="./components/simpleUpload/simple-upload.0.1.0.es.js"></script>
 ```
 
 If you use a bundler, it should be able to handle the dependencies. If not please reach out to me and open an issue.
