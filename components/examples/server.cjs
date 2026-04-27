@@ -16,8 +16,6 @@ http.createServer((req, res) => {
 				return fileName => fileName.replace(illegalChars,"");
 			})();
   
-      // Remove all path traversal attempts (../ or ..\)
-      sanitizedPath = sanitizedPath.replace(/(\.\.[\/\\])+/g, "");
       const 
         unsafeName = path.basename(sanitizedPath),
         unsafeRest = sanitizedPath.slice(0, sanitizedPath.length - unsafeName.length);
@@ -26,7 +24,8 @@ http.createServer((req, res) => {
       let filePath = path.join(BASE_DIR, sanitizedPath);
   
       // Ensure the file path is within the BASE_DIR
-      if (!filePath.startsWith(BASE_DIR)) {
+      const rel = path.relative(BASE_DIR, filePath);
+      if (rel === ".." || rel.startsWith(".." + path.sep) || path.isAbsolute(rel)) {
         res.writeHead(403, { "Content-Type": "text/plain" });
         res.end("Access denied");
         return;
