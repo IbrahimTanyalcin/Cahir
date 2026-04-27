@@ -1,10 +1,11 @@
-import ch from "../../collections/DOM/ch.0.1.0.es.js";
+import ch from "../../collections/DOM/ch.0.1.1.es.js";
 const pointerOrb = ((symbols) => {
   "use strict";
   const 
     _window = globalThis || self || window,
     wk = new WeakMap(),
     {pi_2, pi_4, pi_8, pi_12} = new Proxy({}, {get: (t,p,r) => Math.PI * p.split("_").at(-1)}),
+    cssVars = {x: "--orb-x", y: "--orb-y", pointerX: "--orb-pointer-x", pointerY: "--orb-pointer-y", dx: "--orb-dx", dy: "--orb-dy"},
     throttle_v2 = function(f, {thisArg = void(0), delay=100, defer=true} = {}){
       const 
           that = this,
@@ -41,14 +42,71 @@ const pointerOrb = ((symbols) => {
     },
     genElastic = range => decay => (t) => Math.max(0, 1 - Math.sin(pi_2 * (range | 0) * t) / Math.pow((pi_2 * (range | 0) * t), decay)) || 0,
     elastic = genElastic(12)(0.9),
-    autoPointerMove = function({clientX:x, clientY: y}){
+    autoPointerMove = function({clientX:x, clientY:y, timeStamp:t, type}){
       const {orb, el, values:v} = this;
       if (!el.parentNode){
         document.body.removeEventListener("pointermove", el[symbols.autoPointerMove]);
+        document.body.removeEventListener("pointerdown", el[symbols.autoPointerMove]);
         return v.autoMountAdded = 0;
       }
-      orb.style.setProperty("--pointerX", x);
-      orb.style.setProperty("--pointerY", y);
+      // EMA on pointer velocity
+      let dx, dy;
+      const dt = t - (v.lastPointerT || 0),
+            isFirst = v.prevPointerX === undefined,
+            isDown = type === "pointerdown";
+
+      if (isFirst) {
+        dx = x; dy = y;                    // first event, no reference; safe default
+      } else if (isDown) {
+        const rawDx = x - v.prevPointerX,
+              rawDy = y - v.prevPointerY;
+        if (rawDx === 0 && rawDy === 0) {
+          // Click at same spot as last known pointer (desktop click-after-stop):
+          // preserve last smoothed velocity, don't degenerate to 0.
+          dx = v.smoothDx || 0;
+          dy = v.smoothDy || 0;
+        } else {
+          // Tap-then-tap-elsewhere (touchscreen path): raw delta IS the direction signal.
+          dx = rawDx;
+          dy = rawDy;
+        }
+      } else if (dt > v.velocityStaleMs) {
+        dx = 0; dy = 0;                    // stale move stream → reset
+      } else {
+        const rawDx = x - v.prevPointerX,
+              rawDy = y - v.prevPointerY;
+        dx = v.velocitySmoothing * rawDx + (1 - v.velocitySmoothing) * (v.smoothDx || 0);
+        dy = v.velocitySmoothing * rawDy + (1 - v.velocitySmoothing) * (v.smoothDy || 0);
+      }
+
+      v.prevPointerX = x;
+      v.prevPointerY = y;
+      v.lastPointerT = t;
+
+      // CRITICAL: only let continuous-move samples mutate the smoothed state.
+      // Tap deltas are huge magnitudes that would poison subsequent EMA blends.
+      if (!isFirst && !isDown && dt <= v.velocityStaleMs) {
+        v.smoothDx = dx;
+        v.smoothDy = dy;
+      }
+      
+      // RAF-coalesced flush instead of synchronous style writes.
+      v.pendingX = x;
+      v.pendingY = y;
+      v.pendingDx = dx;
+      v.pendingDy = dy;
+      if (!v.rafScheduled) {
+        v.rafScheduled = true;
+        requestAnimationFrame(() => {
+          v.rafScheduled = false;
+          orb.style.setProperty(cssVars.pointerX, v.pendingX);
+          orb.style.setProperty(cssVars.pointerY, v.pendingY);
+          orb.style.setProperty(cssVars.x, v.pendingX);
+          orb.style.setProperty(cssVars.y, v.pendingY);
+          orb.style.setProperty(cssVars.dx, v.pendingDx);
+          orb.style.setProperty(cssVars.dy, v.pendingDy);
+        });
+      }
     },
     autoPointerDown = function({orb, el, values:v}, {clientX:x, clientY: y}){ //inherits from MouseEvent
       if (!el.parentNode) {
@@ -82,18 +140,33 @@ const pointerOrb = ((symbols) => {
         )
       ) return;
       CSSGlobalSheet = CSSGlobalSheet || new CSSStyleSheet();
-      CSSGlobalSheet.replaceSync(`
-        @property --x { syntax: "<number>"; inherits: true; initial-value: 0; }
-        @property --y { syntax: "<number>"; inherits: true; initial-value: 0; }
-        @property --pointerX { syntax: "<number>"; inherits: true; initial-value: 0; }
-        @property --pointerY { syntax: "<number>"; inherits: true; initial-value: 0; }
-      `);
+      CSSGlobalSheet.replaceSync(Object.values(cssVars).reduce(
+        (ac,d,i,a) => ac += `@property ${d} { syntax: "<number>"; inherits: true; initial-value: 0; }\n`,
+        ""
+      ));
       if (!Object.isSealed(sheets) && !Object.isFrozen(sheets) && "push" in sheets) {
         sheets.push(CSSGlobalSheet);
       } else {
         document.adoptedStyleSheets = [...sheets, CSSGlobalSheet];
       }
-    };
+    },
+    CSSGlobalStyleSheetLoaderSafari = function() {
+      for (const name of Object.values(cssVars)) {
+        try {
+          CSS.registerProperty({ name, syntax: "<number>", inherits: true, initialValue: "0" });
+        } catch (e) { /* already registered */ }
+      }
+    },
+    getDOMTimeStamp = (() => {
+      if (typeof _window.Event === "function") {
+        return () => new Event("pointer-orb-timestamp").timeStamp;
+      }
+      const p = _window.performance;
+      if (p && typeof p.now === "function") {
+        return () => p.now();
+      }
+      return () => Date.now();
+    })();
   let CSSGlobalSheet = void(0);
 return function pointerOrb({name, attrs, styles, props, data, el, proto}) {
   if (!el[symbols.initialized]){
@@ -157,6 +230,8 @@ return function pointerOrb({name, attrs, styles, props, data, el, proto}) {
       v.opacity = ch.gatr("data-opacity");
       v.autoMount = !!(el.hasAttribute("data-auto-mount") ? parseAttrType1(ch.gatr("data-auto-mount")) : true);
       v.autoCapture = !!(el.hasAttribute("data-auto-capture") ? parseAttrType1(ch.gatr("data-auto-capture")) : true);
+      v.velocitySmoothing = +ch.gatr("data-velocity-smoothing") || 0.3;
+      v.velocityStaleMs = +ch.gatr("data-velocity-stale-ms") || 200;
       return v;
     };
     proto[symbols.upFilter] = async function({values:v, el}){
@@ -180,12 +255,12 @@ return function pointerOrb({name, attrs, styles, props, data, el, proto}) {
       if (v.autoMount) {
         if (!v.autoMountAdded) {
           v.autoMountAdded = 1;
-          ch(document.body).on("pointermove", el[symbols.autoPointerMove]);
+          ch(document.body).on("pointermove", el[symbols.autoPointerMove]).on("pointerdown", el[symbols.autoPointerMove]);
         }
       } else {
         if (v.autoMountAdded) {
           v.autoMountAdded = 0;
-          ch(document.body).off("pointermove", el[symbols.autoPointerMove]);
+          ch(document.body).off("pointermove", el[symbols.autoPointerMove]).off("pointerdown", el[symbols.autoPointerMove]);
         }
       }
       if (v.autoCapture) {
@@ -300,13 +375,26 @@ return function pointerOrb({name, attrs, styles, props, data, el, proto}) {
     proto.nudge = function(){
       ch(this).satr("data-nudge").selected.removeAttribute("data-nudge");
     }
+    proto.getPos = function(){
+      const v = wk.get(this);
+      return [v.pendingX ?? 0, v.pendingY ?? 0];
+    };
+    proto.moveTo = function(x,y){
+      this[symbols.autoPointerMove]({clientX:x, clientY:y, timeStamp: getDOMTimeStamp(), type: "pointerdown"});
+    };
+    proto.clicked = function(){
+      const v = wk.get(this);
+      v.orb.classList.toggle("clicked");
+    };
     CSSGlobalSheetLoader();
+    CSSGlobalStyleSheetLoaderSafari();
   }
   const shadow = el[symbols.shadow] = el.attachShadow({ mode: "open" });
   let state = 0,
       toggle,
       calcResize;
   ch(el)`
+  satr ${[["aria-hidden", "true"], ["role", "presentation"]]}
   => ${({values:v}) => () => {
     const updateDelay = +ch.gatr("data-update-delay") || 50,
           resizeDelay = +ch.gatr("data-resize-delay") || 500,
@@ -381,6 +469,12 @@ return function pointerOrb({name, attrs, styles, props, data, el, proto}) {
             opacity: ${state};
           }
           #center {
+            ${cssVars.x}: 0;
+            ${cssVars.y}: 0;
+            ${cssVars.pointerX}: 0;
+            ${cssVars.pointerY}: 0;
+            ${cssVars.dx}: 0;
+            ${cssVars.dy}: 0;
             pointer-events: none;
             filter: url(#def-filter);
             width: calc(var(--currWidth) * 1px);
@@ -392,13 +486,12 @@ return function pointerOrb({name, attrs, styles, props, data, el, proto}) {
             background: ${v.backgroundPrimary || "var(--bg-primary, red)"};
             border-radius: ${v.borderRadius || "var(--border-radius, 50%)"};
             position: absolute;
-            top: calc((var(--y, 0) - var(--currHeight, 0)  / 2) * 1px);
-            left: calc((var(--x, 0) - var(--currWidth, 0) / 2) * 1px);
+            top: calc((var(${cssVars.y}, 0) - var(--currHeight, 0)  / 2) * 1px);
+            left: calc((var(${cssVars.x}, 0) - var(--currWidth, 0) / 2) * 1px);
             font-size: 1rem;
-            animation: follow-pointer 1s 0s infinite normal none running;
-            animation-composition: replace;
-            --direction: atan2(calc(var(--pointerY) - var(--y)), calc(var(--pointerX) - var(--x)));
-            --distance-proxy: min(var(--currWidth) , calc(pow(var(--pointerY) - var(--y), 2) + pow(var(--pointerX) - var(--x), 2)));
+            transition: ${cssVars.x} 1s, ${cssVars.y} 1s;
+            --direction: atan2(var(${cssVars.dy}), var(${cssVars.dx}));
+            --distance-proxy: min(var(--currWidth) , calc(pow(var(${cssVars.pointerY}) - var(${cssVars.y}), 2) + pow(var(${cssVars.pointerX}) - var(${cssVars.x}), 2)));
             #shell:has(+ svg #cus-filter *) & {
               filter: url(#cus-filter);
             }
@@ -448,12 +541,6 @@ return function pointerOrb({name, attrs, styles, props, data, el, proto}) {
               visibility: visible;
             }
           }
-          @keyframes follow-pointer {
-            to {
-              --x: var(--pointerX);
-              --y: var(--pointerY);
-            }
-          }
        </style>
     `}`
   }}
@@ -474,9 +561,9 @@ return function pointerOrb({name, attrs, styles, props, data, el, proto}) {
         <foreignObject>
           <slot></slot>
         </foreignObject>
-        <filter id="cus-filter">
+        <filter id="cus-filter" x="-500%" y="-500%" width="1100%" height="1100%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse">
         </filter>
-        <filter id="def-filter">
+        <filter id="def-filter" x="-500%" y="-500%" width="1100%" height="1100%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse">
           <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="blur"/>
           <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 40 -10" result="filter"/>
           <feComposite in="SourceGraphic" in2="filter" operator="atop"/>
@@ -489,14 +576,10 @@ return function pointerOrb({name, attrs, styles, props, data, el, proto}) {
     for (let i = 0, j = []; i <= 39; ++i) {
       j.push(Math.min(1.0, elastic(i / 39)).toFixed(3));
       if (i === 39) {
-        ch(v.orb).style("animation-timing-function" , `linear(${j})`);
+        ch(v.orb).style("transition-timing-function" , `linear(${j})`);
       }
     }
-    ch.on("animationiteration",function(animEvent) {
-      if(animEvent.animationName === 'follow-pointer') {
-        ch(v.orb).style([['--x', v.orb.style.getPropertyValue('--pointerX')], ['--y', v.orb.style.getPropertyValue('--pointerY')]])
-      }
-    }).on("transitionend",  function(transitionEvt) {
+    ch(v.orb).on("transitionend",  function(transitionEvt) {
       if (transitionEvt?.pseudoElement?.toLowerCase()?.endsWith("before")) {
           ch(this).rmClass("clicked");
           this.__transitionEnded = true;

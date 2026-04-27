@@ -1,4 +1,4 @@
-import ch from "../../collections/DOM/ch.0.1.0.es.js";
+import ch from "../../collections/DOM/ch.0.1.1.es.js";
 function bioinfoInput({name, attrs, styles, props, data, el, proto}) {
     if (!el.initialized){
       proto.initialized = true;

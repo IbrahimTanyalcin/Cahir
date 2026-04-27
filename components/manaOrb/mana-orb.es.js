@@ -1,4 +1,4 @@
-import ch from "../../collections/DOM/ch.0.1.0.es.js";
+import ch from "../../collections/DOM/ch.0.1.1.es.js";
 const manaOrb = ((symbols) => function manaOrb({name, attrs, styles, props, data, el, proto}) {
     if (!el[symbols.initialized]){
       proto[symbols.initialized] = true;

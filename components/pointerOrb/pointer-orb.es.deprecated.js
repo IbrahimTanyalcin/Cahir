@@ -1,9 +1,11 @@
+import ch from "../../collections/DOM/ch.0.1.1.es.js";
 const pointerOrb = ((symbols) => {
   "use strict";
   const 
     _window = globalThis || self || window,
     wk = new WeakMap(),
     {pi_2, pi_4, pi_8, pi_12} = new Proxy({}, {get: (t,p,r) => Math.PI * p.split("_").at(-1)}),
+    cssVars = {x: "--orb-x", y: "--orb-y", pointerX: "--orb-pointer-x", pointerY: "--orb-pointer-y"},
     throttle_v2 = function(f, {thisArg = void(0), delay=100, defer=true} = {}){
       const 
           that = this,
@@ -46,8 +48,8 @@ const pointerOrb = ((symbols) => {
         document.body.removeEventListener("pointermove", el[symbols.autoPointerMove]);
         return v.autoMountAdded = 0;
       }
-      orb.style.setProperty("--pointerX", x);
-      orb.style.setProperty("--pointerY", y);
+      orb.style.setProperty(cssVars.pointerX, x);
+      orb.style.setProperty(cssVars.pointerY, y);
     },
     autoPointerDown = function({orb, el, values:v}, {clientX:x, clientY: y}){ //inherits from MouseEvent
       if (!el.parentNode) {
@@ -82,10 +84,10 @@ const pointerOrb = ((symbols) => {
       ) return;
       CSSGlobalSheet = CSSGlobalSheet || new CSSStyleSheet();
       CSSGlobalSheet.replaceSync(`
-        @property --x { syntax: "<number>"; inherits: true; initial-value: 0; }
-        @property --y { syntax: "<number>"; inherits: true; initial-value: 0; }
-        @property --pointerX { syntax: "<number>"; inherits: true; initial-value: 0; }
-        @property --pointerY { syntax: "<number>"; inherits: true; initial-value: 0; }
+        @property ${cssVars.x} { syntax: "<number>"; inherits: true; initial-value: 0; }
+        @property ${cssVars.y} { syntax: "<number>"; inherits: true; initial-value: 0; }
+        @property ${cssVars.pointerX} { syntax: "<number>"; inherits: true; initial-value: 0; }
+        @property ${cssVars.pointerY} { syntax: "<number>"; inherits: true; initial-value: 0; }
       `);
       if (!Object.isSealed(sheets) && !Object.isFrozen(sheets) && "push" in sheets) {
         sheets.push(CSSGlobalSheet);
@@ -306,6 +308,7 @@ return function pointerOrb({name, attrs, styles, props, data, el, proto}) {
       toggle,
       calcResize;
   ch(el)`
+  satr ${[["aria-hidden", "true"], ["role", "presentation"]]}
   => ${({values:v}) => () => {
     const updateDelay = +ch.gatr("data-update-delay") || 50,
           resizeDelay = +ch.gatr("data-resize-delay") || 500,
@@ -380,6 +383,10 @@ return function pointerOrb({name, attrs, styles, props, data, el, proto}) {
             opacity: ${state};
           }
           #center {
+            ${cssVars.x}: 0;
+            ${cssVars.y}: 0;
+            ${cssVars.pointerX}: 0;
+            ${cssVars.pointerY}: 0;
             pointer-events: none;
             filter: url(#def-filter);
             width: calc(var(--currWidth) * 1px);
@@ -391,13 +398,13 @@ return function pointerOrb({name, attrs, styles, props, data, el, proto}) {
             background: ${v.backgroundPrimary || "var(--bg-primary, red)"};
             border-radius: ${v.borderRadius || "var(--border-radius, 50%)"};
             position: absolute;
-            top: calc((var(--y, 0) - var(--currHeight, 0)  / 2) * 1px);
-            left: calc((var(--x, 0) - var(--currWidth, 0) / 2) * 1px);
+            top: calc((var(${cssVars.y}, 0) - var(--currHeight, 0)  / 2) * 1px);
+            left: calc((var(${cssVars.x}, 0) - var(--currWidth, 0) / 2) * 1px);
             font-size: 1rem;
             animation: follow-pointer 1s 0s infinite normal none running;
             animation-composition: replace;
-            --direction: atan2(calc(var(--pointerY) - var(--y)), calc(var(--pointerX) - var(--x)));
-            --distance-proxy: min(var(--currWidth) , calc(pow(var(--pointerY) - var(--y), 2) + pow(var(--pointerX) - var(--x), 2)));
+            --direction: atan2(calc(var(${cssVars.pointerY}) - var(${cssVars.y})), calc(var(${cssVars.pointerX}) - var(${cssVars.x})));
+            --distance-proxy: min(var(--currWidth) , calc(pow(var(${cssVars.pointerY}) - var(${cssVars.y}), 2) + pow(var(${cssVars.pointerX}) - var(${cssVars.x}), 2)));
             #shell:has(+ svg #cus-filter *) & {
               filter: url(#cus-filter);
             }
@@ -449,8 +456,8 @@ return function pointerOrb({name, attrs, styles, props, data, el, proto}) {
           }
           @keyframes follow-pointer {
             to {
-              --x: var(--pointerX);
-              --y: var(--pointerY);
+              ${cssVars.x}: var(${cssVars.pointerX});
+              ${cssVars.y}: var(${cssVars.pointerY});
             }
           }
        </style>
@@ -493,7 +500,7 @@ return function pointerOrb({name, attrs, styles, props, data, el, proto}) {
     }
     ch.on("animationiteration",function(animEvent) {
       if(animEvent.animationName === 'follow-pointer') {
-        ch(v.orb).style([['--x', v.orb.style.getPropertyValue('--pointerX')], ['--y', v.orb.style.getPropertyValue('--pointerY')]])
+        ch(v.orb).style([[cssVars.x, v.orb.style.getPropertyValue(cssVars.pointerX)], [cssVars.y, v.orb.style.getPropertyValue(cssVars.pointerY)]])
       }
     }).on("transitionend",  function(transitionEvt) {
       if (transitionEvt?.pseudoElement?.toLowerCase()?.endsWith("before")) {

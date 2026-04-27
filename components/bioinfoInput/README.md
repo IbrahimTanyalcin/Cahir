@@ -10,14 +10,14 @@ A native webcomponent that can be used as input field.
 ### regular script
 
 ```html
-  <script src="https://cdn.jsdelivr.net/npm/cahir@0.1.0/dist/cahir.0.1.0.evergreen.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/cahir@0.1.0/collections/DOM/ch.0.1.0.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/cahir@0.1.0/components/bioinfoInput/bioinfo-input.0.1.0.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cahir@0.1.1/dist/cahir.0.1.1.evergreen.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cahir@0.1.1/collections/DOM/ch.0.1.1.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cahir@0.1.1/components/bioinfoInput/bioinfo-input.0.1.1.js"></script>
 ```
 
 ### es module
 ```html
-<script type="module" src="./components/bioinfoInput/bioinfo-input.0.1.0.es.js"></script>
+<script type="module" src="./components/bioinfoInput/bioinfo-input.0.1.1.es.js"></script>
 ```
 
 If you use a bundler, it should be able to handle the dependencies. If not please reach out to me and open an issue.
