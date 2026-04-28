@@ -46,6 +46,16 @@
     "genVersionless": "node scripts/gen-versionless.js",
     "build": "cross-env-shell npm run buildEvergreen && npm run minEvergreen && npm run genVersionless"
   },
+  "files": [
+    "dist/",
+    "collections/",
+    "components/",
+    "src/",
+    "scripts/",
+    ".agents/",
+    "CHANGELOG.md",
+    "rollup.config.evergreen.js"
+  ],
   "keywords": [
     "webcomponents",
     "DOM",
